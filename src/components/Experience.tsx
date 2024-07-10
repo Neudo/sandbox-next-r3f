@@ -1,6 +1,7 @@
 import React from 'react';
 import {Environment, Scroll, ScrollControls} from "@react-three/drei";
 import {VisionPro} from "@/models/visionPro";
+import Header from "@/components/vision-pro/Header";
 
 function Experience() {
 
@@ -13,7 +14,6 @@ function Experience() {
                 preset="apartment"
                 background={false}
             />
-
             <ScrollControls pages={5} damping={0.1}>
                 {/* Canvas contents in here will *not* scroll, but receive useScroll! */}
                 <VisionPro   scale={20} rotation-y={-1.8} position={[0, 0, 0]}/>
@@ -22,11 +22,14 @@ function Experience() {
                 </Scroll>
                 <Scroll html style={{width: '100%', padding:'0 25px'}} >
                     {/* DOM contents in here will scroll along */}
-                    <h1 style={{ top: '100vh' }}>Welcome to the era of spatial computing.</h1>
-                    <h1 style={{ top: '200vh' }}>Apple Vision Pro seamlessly blends digital content with your physical space.</h1>
-                    <h1 style={{ top: '300vh' }}>You navigate simply by using your eyes, hands, and voice.</h1>
-                    <h1 style={{ top: '400vh' }}>So you can do the things you love in ways never before possible.</h1>
-                    <h1 style={{ top: '500vh' }}>You’ve never seen everything like this before.</h1>
+                    <Header/>
+                    <section>
+                        <h1 style={{ top: '100vh' }}>Welcome to the era of spatial computing.</h1>
+                        <h1 style={{ top: '200vh' }}>Apple Vision Pro seamlessly blends digital content with your physical space.</h1>
+                        <h1 style={{ top: '300vh' }}>You navigate simply by using your eyes, hands, and voice.</h1>
+                        <h1 style={{ top: '400vh' }}>So you can do the things you love in ways never before possible.</h1>
+                        <h1 style={{ top: '500vh' }}>You’ve never seen everything like this before.</h1>
+                    </section>
                 </Scroll>
             </ScrollControls>
         </>

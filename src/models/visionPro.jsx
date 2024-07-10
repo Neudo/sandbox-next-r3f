@@ -24,14 +24,15 @@ export function VisionPro(props) {
     useLayoutEffect(() => {
         tl.current = gsap.timeline({defaults: { duration: 2, ease: 'power1.inOut' }})
         tl.current
-            .to(ref.current.rotation, {y: Math.PI / 2})
-            .to(ref.current.position, {x: 2, z: 3}, 2)
+            .to(ref.current.rotation, {y: Math.PI}, 0)
+            .to(ref.current.position, {x: 2, z: 2}, 0)
 
+            .to(ref.current.rotation, {y: Math.PI * 2}, 2)
+            .to(ref.current.position, {x: 0, z: 0}, 2)
 
-
+            .to(ref.current.rotation, {y: Math.PI * 3}, 4)
+            .to(ref.current.position, {x: -2, z: -2}, 4)
     },[])
-
-
 
     return (
         <group {...props} dispose={null} ref={ref}  >
