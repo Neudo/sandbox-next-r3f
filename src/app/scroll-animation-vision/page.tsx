@@ -8,7 +8,7 @@ function Page() {
         <Canvas
             style={{height: '100vh', width: '100vw'}}
             shadows
-            camera={{position: [0, 0, 9]}}
+            camera={{position: [-2, 0, 9]}}
         >
             <Experience/>
         </Canvas>
