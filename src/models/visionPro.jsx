@@ -17,6 +17,11 @@ export function VisionPro(props) {
     const scroll = useScroll()
     const tl = useRef()
 
+    function getVisionProPosition() {
+        console.log('Position -> ',ref.current.position)
+        console.log('Rotation -> ',ref.current.rotation)
+    }
+
     useFrame((state, delta) => {
         tl.current.seek(scroll.offset * tl.current.duration())
     })
@@ -24,21 +29,33 @@ export function VisionPro(props) {
     useLayoutEffect(() => {
         tl.current = gsap.timeline({defaults: { duration: 2, ease: 'power1.inOut' }})
         tl.current
-            .to(ref.current.position, {x: 5, z: 1.5}, 0)
-            .to(ref.current.rotation, {y: -Math.PI / 2 }, 2)
-            // .to(ref.current.position, {x: 2, z: 2}, 2)
+            .to(ref.current.position, {x: 5, z: 2.5}, 0.5)
+
+            .to(ref.current.rotation, {y: Math.PI * 1.5 }, 2)
+
+            .to(ref.current.position, {x: -5, z: 1}, 4)
+            .to(ref.current.rotation, {y: Math.PI * 2 }, 4)
+
+            .to(ref.current.rotation, {x: -Math.PI * .13 }, 6)
+
+            .to(ref.current.rotation, {x: Math.PI * .25 }, 8)
+            .to(ref.current.position, {z: -2}, 8)
 
 
+            .to(ref.current.rotation, {x: Math.PI * .05 }, 10)
+            .to(ref.current.position, {x: 0, z: 0}, 10)
 
+            //last position animation
+            .to(ref.current.rotation, {y: Math.PI * 1.44 }, 12)
+            .to(ref.current.position, {x: -0.7, z: 3}, 12)
 
-            .to(ref.current.position, {x: 0, z: 2}, 10)
-            .to(ref.current.rotation, {y: -Math.PI * .63 }, 10)
-            .to(ref.current.rotation, {x: 0 }, 10)
 
     },[])
 
     return (
-        <group {...props} dispose={null} ref={ref}  >
+        <group {...props} dispose={null} ref={ref}
+               onClick={getVisionProPosition}
+        >
             <group scale={0.01}>
                 <mesh
                     castShadow
