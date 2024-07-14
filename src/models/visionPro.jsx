@@ -33,17 +33,19 @@ export function VisionPro(props) {
 
             .to(ref.current.rotation, {y: Math.PI * 1.5 }, 2)
 
-            .to(ref.current.position, {x: -5, z: 1}, 4)
+            .to(ref.current.position, {x: -4, z: 1}, 4)
             .to(ref.current.rotation, {y: Math.PI * 2 }, 4)
 
             .to(ref.current.rotation, {x: -Math.PI * .13 }, 6)
+            .to(ref.current.position, {z: 2}, 6)
+
 
             .to(ref.current.rotation, {x: Math.PI * .25 }, 8)
             .to(ref.current.position, {z: -2}, 8)
 
 
             .to(ref.current.rotation, {x: Math.PI * .05 }, 10)
-            .to(ref.current.position, {x: 0, z: 0}, 10)
+            .to(ref.current.position, {x: 0, z: 1}, 10)
 
             //last position animation
             .to(ref.current.rotation, {y: Math.PI * 1.44 }, 12)

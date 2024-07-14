@@ -1,10 +1,7 @@
 import React from 'react';
-import {Environment, Scroll, ScrollControls} from "@react-three/drei";
+import {Environment, RoundedBox, Scroll, ScrollControls} from "@react-three/drei";
 import { VisionPro } from "@/models/visionPro";
 import Header from "@/components/vision-pro/Header";
-import { Html } from "@react-three/drei";
-import {translate} from "maath/buffer";
-
 
 function Experience() {
     return (
