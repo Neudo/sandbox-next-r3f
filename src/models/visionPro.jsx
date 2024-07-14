@@ -20,6 +20,7 @@ export function VisionPro(props) {
     function getVisionProPosition() {
         console.log('Position -> ',ref.current.position)
         console.log('Rotation -> ',ref.current.rotation)
+        console.log(scroll.offset)
     }
 
     useFrame((state, delta) => {

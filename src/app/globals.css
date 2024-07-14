@@ -89,3 +89,17 @@ button:hover{
     background-color: #1d1d1f;
     color: white;
 }
+
+.headerHtml{
+    position: fixed !important;
+    z-index: -9999999;
+}
+
+.invisibleHeader{
+    top: -100%;
+    transition: top 0.7s ease;
+}
+
+.centerLogo{
+    z-index: -9999;
+}
