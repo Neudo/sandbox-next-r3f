@@ -16,41 +16,51 @@ export function VisionPro(props) {
     const ref = useRef()
     const scroll = useScroll()
     const tl = useRef()
+    let {rotationMode, updateRotationMode, updateRotation} = props
+
 
     function getVisionProPosition() {
         console.log('Position -> ',ref.current.position)
         console.log('Rotation -> ',ref.current.rotation)
-        console.log(scroll.offset)
+        console.log("scroll offset = ",scroll.offset)
     }
 
     useFrame((state, delta) => {
         tl.current.seek(scroll.offset * tl.current.duration())
+        if (scroll.offset === 1 && rotationMode) {
+            ref.current.rotation.y += 0.003
+            updateRotation(ref.current.rotation.y)
+        } else if (scroll.offset < 1){
+            updateRotationMode(true)
+        }
     })
+
+
 
     useLayoutEffect(() => {
         tl.current = gsap.timeline({defaults: { duration: 2, ease: 'power1.inOut' }})
         tl.current
             .to(ref.current.position, {x: 5, z: 2.5}, 0.5)
 
-            .to(ref.current.rotation, {y: Math.PI * 1.5 }, 2)
+            .to(ref.current.rotation, {y: Math.PI * 1.5 }, 4)
 
-            .to(ref.current.position, {x: -4, z: 1}, 4)
-            .to(ref.current.rotation, {y: Math.PI * 2 }, 4)
+            .to(ref.current.position, {x: -4, z: 1}, 6)
+            .to(ref.current.rotation, {y: Math.PI * 2 }, 6)
 
-            .to(ref.current.rotation, {x: -Math.PI * .13 }, 6)
-            .to(ref.current.position, {z: 2}, 6)
-
-
-            .to(ref.current.rotation, {x: Math.PI * .25 }, 8)
-            .to(ref.current.position, {z: -2}, 8)
+            .to(ref.current.rotation, {x: -Math.PI * .13 }, 8)
+            .to(ref.current.position, {z: 2}, 8)
 
 
-            .to(ref.current.rotation, {x: Math.PI * .05 }, 10)
-            .to(ref.current.position, {x: 0, z: 1}, 10)
+            .to(ref.current.rotation, {x: Math.PI * .25 }, 10)
+            .to(ref.current.position, {z: -2}, 10)
+
+
+            .to(ref.current.rotation, {x: Math.PI * .05 }, 12)
+            .to(ref.current.position, {x: 0, z: 1}, 12)
 
             //last position animation
-            .to(ref.current.rotation, {y: Math.PI * 1.44 }, 12)
-            .to(ref.current.position, {x: -0.7, z: 3}, 12)
+            .to(ref.current.rotation, {y: Math.PI * 1.64 }, 14)
+            .to(ref.current.position, {x: -0.7, z: 1}, 14)
 
 
     },[])
