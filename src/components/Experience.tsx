@@ -90,6 +90,11 @@ function Experience() {
                                 onClick={startPresentationMode}
                         >Take a closer look
                         </button>
+                        <ul className="absolute bottom-2 bg-sky-400 w-full rounded-2xl p-6 flex " >
+                            <li>Btn1</li>
+                            <li>Btn2</li>
+                            <li>Btn3</li>
+                        </ul>
                     </section>
                 </Scroll>
             </ScrollControls>
