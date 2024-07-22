@@ -20,7 +20,7 @@ function TitleSection(props) {
     })
 
 return (
-    <div className="bg-sky-400" >
+    <div>
         <h1 ref={titleRef} className="top-[105vh] left">Welcome to the era of spatial computing.</h1>
         <h1 className="" style={{top: '190vh'}}>Apple Vision Pro seamlessly blends digital content with your physical
             space.</h1>

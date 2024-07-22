@@ -16,7 +16,7 @@ export function VisionPro(props) {
     const ref = useRef()
     const scroll = useScroll()
     const tl = useRef()
-    let {rotationMode, updateRotationMode, updateRotation} = props
+    let {rotationMode, updateRotationMode, updateRotation, updatePosition} = props
 
 
     function getVisionProPosition() {
@@ -29,7 +29,12 @@ export function VisionPro(props) {
         tl.current.seek(scroll.offset * tl.current.duration())
         if (scroll.offset === 1 && rotationMode) {
             ref.current.rotation.y += 0.003
+            if(ref.current.rotation.y > Math.PI * 2){
+                ref.current.rotation.y = 0
+            }
             updateRotation(ref.current.rotation.y)
+            updatePosition(ref.current.position)
+
         } else if (scroll.offset < 1){
             updateRotationMode(true)
         }
@@ -60,9 +65,7 @@ export function VisionPro(props) {
 
             //last position animation
             .to(ref.current.rotation, {y: Math.PI * 1.64 }, 14)
-            .to(ref.current.position, {x: -0.7, z: 1}, 14)
-
-
+            .to(ref.current.position, {x: 0.6, z: -3}, 14)
     },[])
 
     return (
