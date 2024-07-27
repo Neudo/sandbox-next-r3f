@@ -6,6 +6,7 @@ export default function Home() {
       <nav>
         <ul>
             <li><a href="/scroll-animation-vision">Scroll animation (vision pro)</a></li>
+            <li><a href="/camera-position">Camera position animation</a></li>
         </ul>
       </nav>
 

@@ -1,28 +1,47 @@
+import * as THREE from 'three'
 import React, {useState} from 'react';
-import {Environment, Scroll, ScrollControls} from "@react-three/drei";
+import {CameraControls, Environment, Scroll, ScrollControls} from "@react-three/drei";
 import {VisionPro} from "@/models/visionPro";
 import Header from "@/components/vision-pro/Header";
 import TitleSection from "@/components/TitleSection";
-import {useFrame} from "@react-three/fiber";
+import {useFrame, useThree} from "@react-three/fiber";
 
 function Experience() {
     const [visionPosition, setVisionPosition] = useState([0, -.7, 0.3])
     let  [visionRotation, setVisionRotation] = useState(Math.PI)
     const [rotationMode, setRotationMode] = useState<boolean>(true)
     const [scrollEnabled, setScrollEnabled] = useState<boolean>(true)
-    const [visionPositionXZ, setVisionPositionXZ] = useState<number>(visionPosition[2])
     const [stopAnimationRotation, setStopAnimationRotation] = useState<boolean>(false)
-    const [stopAnimationPosition, setStopAnimationPosition] = useState<boolean>(false)
-    const [stopAnimationPositionX, setStopAnimationPositionX] = useState<boolean>(false)
     const [bottom, setBottom] = useState<string>('50px')
+const [enabled, setEnabled] = useState<boolean>(false)
+    const cameraControlsRef = React.useRef<CameraControls>(null!)
+    const { camera } = useThree()
+    const minDistance = 1
+
+    const verticalDragToForward = false
+    const dollyToCursor = false
+    const infinityDolly = false
+    const { DEG2RAD } = THREE.MathUtils
+
     const startPresentationMode = () => {
 
         setRotationMode(false)
-        setStopAnimationPosition(false)
         setStopAnimationRotation(false)
-        setStopAnimationPositionX(false)
         setBottom('-150px')
+        setEnabled(true)
+        cameraControlsRef.current?.setLookAt(0, 0, 6, 0, 0, 0, true)
+        setTimeout(() => {
+            setEnabled(false)
+        }, 3550)
+    }
 
+    const rotate20 = () => {
+        setEnabled(true)
+        console.log(cameraControlsRef.current)
+        cameraControlsRef.current?.rotate(0, 20 * DEG2RAD, true)
+        setTimeout(() => {
+            setEnabled(false)
+        }, 3550)
     }
 
     const updateRotationMode = (newRotationMode) => {
@@ -38,27 +57,22 @@ function Experience() {
     useFrame((state, delta) => {
         if (!rotationMode && !stopAnimationRotation) {
             setVisionRotation(visionRotation -= 0.035)
-            if(visionRotation <= Math.PI * 1.43 ){
+            if(visionRotation <= Math.PI * 1.50 ){
                 setStopAnimationRotation(true)
             }
         }
-        if(!rotationMode && !stopAnimationPosition) {
-            setVisionPositionXZ(visionPosition.z += 0.08)
-            if(visionPosition.z >= 2.90){
-                setStopAnimationPosition(true)
-            }
-        }
-        if(!rotationMode && !stopAnimationPositionX){
-            setVisionPositionXZ(visionPosition.x -= 0.08)
-            if(visionPosition.x <= -.4){
-                setStopAnimationPositionX(true)
-            }
-        }
-
     })
 
     return (
         <>
+            <CameraControls
+                ref={cameraControlsRef}
+                minDistance={minDistance}
+                enabled={enabled}
+                verticalDragToForward={verticalDragToForward}
+                dollyToCursor={dollyToCursor}
+                infinityDolly={infinityDolly}
+            />
             <ambientLight intensity={0.5}/>
             <spotLight position={[0, 25, 0]} angle={1.3} castShadow intensity={2} penumbra={1} shadow-bias={-0.0001}/>
             <Environment preset="apartment" background={false} />
@@ -90,10 +104,16 @@ function Experience() {
                                 onClick={startPresentationMode}
                         >Take a closer look
                         </button>
-                        <ul className="absolute bottom-2 bg-sky-400 w-full rounded-2xl p-6 flex " >
-                            <li>Btn1</li>
-                            <li>Btn2</li>
-                            <li>Btn3</li>
+                        <ul className={`bg-slate-800 absolute gap-2 ${rotationMode ? '-bottom-[50%]' : 'bottom-2'} transition-all ease-out overflow-scroll w-[90vw] left-1/2 -translate-x-1/2 rounded-2xl justify-center p-6 flex whitespace-nowrap`}>
+                            <li className="cursor-pointer p-4 rounded-2xl bg-white" onClick={rotate20}>Front</li>
+                            <li className="cursor-pointer p-4 rounded-2xl bg-slate-400 text-slate-100"  >Cameras and sensors</li>
+                            <li className="cursor-pointer p-4 rounded-2xl bg-slate-400 text-slate-100"  >Audio Straps</li>
+                            <li className="cursor-pointer p-4 rounded-2xl bg-slate-400 text-slate-100"  >Head bands</li>
+                            <li className="cursor-pointer p-4 rounded-2xl bg-slate-400 text-slate-100"  >Displays</li>
+                            <li className="cursor-pointer p-4 rounded-2xl bg-slate-400 text-slate-100"  >Light Seal</li>
+                            <li className="cursor-pointer p-4 rounded-2xl bg-slate-400 text-slate-100"  >Digital Crown</li>
+                            <li className="cursor-pointer p-4 rounded-2xl bg-slate-400 text-slate-100"  >Top button</li>
+                            <li className="cursor-pointer p-4 rounded-2xl bg-slate-400 text-slate-100"  >Power</li>
                         </ul>
                     </section>
                 </Scroll>
